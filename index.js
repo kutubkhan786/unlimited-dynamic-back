@@ -26,7 +26,7 @@ const mongoUri = `mongodb+srv://${dbUser}:${encodeURIComponent(dbPassword)}@clus
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || true,
+    origin: ['https://unlimitedtrekkers.netlify.app', 'https://localhost:5173'],
     credentials: true,
   })
 )
