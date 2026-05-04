@@ -14,8 +14,8 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 5000
 const dbPassword = process.env.DB_PASSWORD
-const dbName = process.env.DB_NAME || 'unlimitedtrekers'
-const dbUser = process.env.DB_USER || 'kutub'
+const dbName = process.env.DB_NAME
+const dbUser = process.env.DB_USER 
 
 if (!dbPassword) {
   console.error('Missing DB_PASSWORD in environment.')
@@ -24,7 +24,12 @@ if (!dbPassword) {
 
 const mongoUri = `mongodb+srv://${dbUser}:${encodeURIComponent(dbPassword)}@cluster0.hgzownj.mongodb.net/${dbName}?appName=Cluster0`
 
-app.use(cors())
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || true,
+    credentials: true,
+  })
+)
 app.use(express.json())
 app.use('/api/events', eventsRouter)
 app.use('/api/users', usersRouter)
